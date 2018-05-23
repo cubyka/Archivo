@@ -5,7 +5,7 @@ function parpadear(){ //generamos una funcion que cambie el color del titulo y l
     color: "white",
   },"slow", regresa);
 }
-function regresa(){ //Regresa el titulo al colo original y llamamos nuevamente a la funcion parapdear para hacer un ciclo interminable.
+function regresa(){ //Regresa el titulo al color original y llamamos nuevamente a la funcion parapdear para hacer un ciclo interminable.
   $(".main-titulo").animate({
     color: "yellow",
   },"slow", parpadear);
@@ -20,8 +20,16 @@ $(".btn-inicio").click(function (){
   }
   $(this).text("Reiniciar"); //Cambiamos el contenido del boton
   $(this).attr("class", "btn-reinicio");
+  alert($("button").hasClass("btn-reinicio"));
+  analisisTablero();
+  console.log(res1);
 });
-//Reinicio de juego
+// Reinicio de juego
 $(".btn-reinicio").click(function (){
+  alert($("button").hasClass("btn-reinicio"));
   location.reload();
-})
+});
+
+function analisisTablero (){
+  res1 = $("[class^='col-']").children("img").attr("src");
+}

@@ -28,7 +28,13 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         }
       }
       $(this).text("Reiniciar"); //Cambiamos el contenido del boton
-      tablero()
+
+
+      analisaTablero () //Analizamos el tablero
+      do {
+        analisaTablero() //Elimnamos dulces hasta que el analisis de tablero sea falso
+      } while (rac == false && raf == false);
+
     } else if (valorBoton == "Reiniciar") { //Si el boton es reiniciar recargamos la pagina
         location.reload()
     }
@@ -70,11 +76,18 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     }
     return af
   }
-  // ..... Fin de analisis de dulces
-  function tablero () {
+  // ------ Funcion para analisar el tablero ------
+  function analisaTablero () {
     rac = analisisColumnas()
     raf = analisisFilas()
     if (rac == true || raf == true) {
+      eliminarDulces()
+    }
+    return rac
+    return raf
+  }
+  // ------ Funcion para eliminar dulces ------
+  function eliminarDulces (){
       $(".igual").hide("pulsate",1000, function () { //sintaxis jqueryUI .hide( effect [, options ] [, duration ] [, complete ] )
         // Es necesario conocer el numero de elementos para sumar puntaje por lo que...
         var score = $(".igual").length
@@ -83,9 +96,8 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         scoreTotal = scoreTotal + score
         $("#score-text").html(score) //Cambiamos puntuacion en el DOM
       })
-    }
-
   }
+
 
 
 

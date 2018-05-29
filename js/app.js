@@ -1,6 +1,6 @@
 $( document ).ready(function() { //Las buenas practicas nos recomiendan que al usar Jquery crear una funcion document.ready y meter todo nuestro codigo dentro de ella.
   // ...... Variables Globales ......
-  scoreTotal = 0;
+  var scoreTotal = 0;
   // ...... Parpadeo de titulo ......
   //llamamos a la funcion parpadear que ejecuta el parpadeo del titulo
   parpadear()
@@ -27,11 +27,12 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         }
       }
       $(this).text("Reiniciar") //Cambiamos el contenido del boton
-      
-      at = false //el ciclo do-while ejeucta el codigo al menos una vez.
+
+      var at = false //el ciclo do-while ejeucta el codigo al menos una vez.
       do {
         analisaTablero() //analisimos el tablero hasta que no existan coincidencias
       } while (at == true)
+      console.log(at)
 
     } else if (valorBoton == "Reiniciar") { //Si el boton es reiniciar recargamos la pagina
         location.reload()
@@ -41,7 +42,7 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
 
   // ...... Analisis de dulces ......
   function analisisColumnas (){ //haremos una funcion que recorra, por columna y en grupos de tres, las imagenes. En caso de ser iguales cambiara su clase.
-    ac = false
+    var ac = false
     for (var c = 1; c <= 7; c++) {
       for (var f = 1; f <= 7; f++) {
         imagen1 = $(".col-"+c).children("img:nth-last-child("+f+")").attr("src")
@@ -58,7 +59,7 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     return ac
   }
   function analisisFilas (){ //haremos una funcion que recorra, por filas y en grupos de tres, las imagenes. En caso de ser iguales cambiara su clase.
-    af = false
+    var af = false
     for (var f = 1; f <= 7; f++) {
       for (var c = 1; c <= 7; c++) {
         imagen1 = $(".col-"+f).children("img:nth-last-child("+c+")").attr("src")
@@ -95,6 +96,7 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         scoreTotal = scoreTotal + score
         $("#score-text").html(score) //Cambiamos puntuacion en el DOM
         at = true
+        console.log("despues de eliminar dulces at es" + at)
         return at
       })
   }

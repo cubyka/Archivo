@@ -1,7 +1,6 @@
 $( document ).ready(function() { //Las buenas practicas nos recomiendan que al usar Jquery crear una funcion document.ready y meter todo nuestro codigo dentro de ella.
   // ...... Variables Globales ......
-  scoreTotal = 0
-
+  scoreTotal = 0;
   // ...... Parpadeo de titulo ......
   //llamamos a la funcion parpadear que ejecuta el parpadeo del titulo
   parpadear()
@@ -27,13 +26,12 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
           $(".col-"+i).append("<img class= 'elemento' src='image/"+num+".png'>")
         }
       }
-      $(this).text("Reiniciar"); //Cambiamos el contenido del boton
-
-
-      analisaTablero () //Analizamos el tablero
+      $(this).text("Reiniciar") //Cambiamos el contenido del boton
+      
+      at = false //el ciclo do-while ejeucta el codigo al menos una vez.
       do {
-        analisaTablero() //Elimnamos dulces hasta que el analisis de tablero sea falso
-      } while (rac == false && raf == false);
+        analisaTablero() //analisimos el tablero hasta que no existan coincidencias
+      } while (at == true)
 
     } else if (valorBoton == "Reiniciar") { //Si el boton es reiniciar recargamos la pagina
         location.reload()
@@ -82,9 +80,10 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     raf = analisisFilas()
     if (rac == true || raf == true) {
       eliminarDulces()
-    }
-    return rac
-    return raf
+    } else {
+      at = false
+      return at
+    };
   }
   // ------ Funcion para eliminar dulces ------
   function eliminarDulces (){
@@ -95,6 +94,8 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         $("img").remove(".igual")
         scoreTotal = scoreTotal + score
         $("#score-text").html(score) //Cambiamos puntuacion en el DOM
+        at = true
+        return at
       })
   }
 

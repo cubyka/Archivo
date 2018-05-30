@@ -1,7 +1,6 @@
 $( document ).ready(function() { //Las buenas practicas nos recomiendan que al usar Jquery crear una funcion document.ready y meter todo nuestro codigo dentro de ella.
   // ...... Variables Globales ......
   var scoreTotal = 0;
-  var at = false
   // ...... Parpadeo de titulo ......
   //llamamos a la funcion parpadear que ejecuta el parpadeo del titulo
   parpadear()
@@ -73,29 +72,36 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   }
   // ------ Funcion para analisar el tablero ------
   function analisaTablero () {
-    //el ciclo do-while ejeucta el codigo al menos una vez.
-    do {
       rac = analisisColumnas()
       raf = analisisFilas()
       if (rac == true || raf == true) {
         eliminarDulces()
       } else {
-        at = false
-      };
-    } while (at == true);
+
+      }
   }
   // ------ Funcion para eliminar dulces ------
   function eliminarDulces (){
-      $(".igual").hide("pulsate",1000, function () { //sintaxis jqueryUI .hide( effect [, options ] [, duration ] [, complete ] )
+        $(".igual").hide("pulsate",1000, function () { //sintaxis jqueryUI .hide( effect [, options ] [, duration ] [, complete ] )
         // Es necesario conocer el numero de elementos para sumar puntaje por lo que...
         var score = $(".igual").length
         //una vez obtendio el valor removemos del dom los elementos, pues estan escondidos, pero aun siguen en el DOM
         $("img").remove(".igual")
         scoreTotal = scoreTotal + score
         $("#score-text").html(score) //Cambiamos puntuacion en el DOM
-        at = true
-        console.log("despues de eliminar dulces at es" + at)
-        return at
+        repoblarDulces()
       })
+  }
+  // ------ Funcion para repoblar nodos vacios ------
+  function repoblarDulces (){
+    for (var f = 0; f <= 7; f++) {
+      for (var c = 1; c <= 7; c++) { //recorremos las 7 filas de cada columna buscando img
+        if ($(".col-"+c).find("img") == false) {
+          var num = Math.floor((Math.random() * 4) + 1);
+          $(".col-"+c).append("<img class= 'elemento' src='image/"+num+".png'>")
+        }
+      }
+    }
+
   }
 })

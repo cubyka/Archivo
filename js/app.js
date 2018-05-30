@@ -40,13 +40,13 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     var ac = false
     for (var c = 1; c <= 7; c++) {
       for (var f = 1; f <= 7; f++) {
-        imagen1 = $(".col-"+c).children("img:nth-last-child("+f+")").attr("src")
-        imagen2 = $(".col-"+c).children("img:nth-last-child("+(f+1)+")").attr("src")
-        imagen3 = $(".col-"+c).children("img:nth-last-child("+(f+2)+")").attr("src")
+        imagen1 = $(".col-"+c).children("img:nth-child("+f+")").attr("src")
+        imagen2 = $(".col-"+c).children("img:nth-child("+(f+1)+")").attr("src")
+        imagen3 = $(".col-"+c).children("img:nth-child("+(f+2)+")").attr("src")
         if (imagen1 == imagen2 && imagen2 == imagen3) {
-          $(".col-"+c).children("img:nth-last-child("+f+")").attr("class", "elemento igual")
-          $(".col-"+c).children("img:nth-last-child("+(f+1)+")").attr("class", "elemento igual")
-          $(".col-"+c).children("img:nth-last-child("+(f+2)+")").attr("class", "elemento igual")
+          $(".col-"+c).children("img:nth-child("+f+")").attr("class", "elemento igual")
+          $(".col-"+c).children("img:nth-child("+(f+1)+")").attr("class", "elemento igual")
+          $(".col-"+c).children("img:nth-child("+(f+2)+")").attr("class", "elemento igual")
           ac = true
         }
       }
@@ -57,13 +57,13 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     var af = false
     for (var f = 1; f <= 7; f++) {
       for (var c = 1; c <= 7; c++) {
-        imagen1 = $(".col-"+f).children("img:nth-last-child("+c+")").attr("src")
-        imagen2 = $(".col-"+(f+1)).children("img:nth-last-child("+c+")").attr("src")
-        imagen3 = $(".col-"+(f+2)).children("img:nth-last-child("+c+")").attr("src")
+        imagen1 = $(".col-"+f).children("img:nth-child("+c+")").attr("src")
+        imagen2 = $(".col-"+(f+1)).children("img:nth-child("+c+")").attr("src")
+        imagen3 = $(".col-"+(f+2)).children("img:nth-child("+c+")").attr("src")
         if (imagen1 == imagen2 && imagen2 == imagen3) {
-          $(".col-"+f).children("img:nth-last-child("+c+")").attr("class", "elemento igual")
-          $(".col-"+(f+1)).children("img:nth-last-child("+c+")").attr("class", "elemento igual")
-          $(".col-"+(f+2)).children("img:nth-last-child("+c+")").attr("class", "elemento igual")
+          $(".col-"+f).children("img:nth-child("+c+")").attr("class", "elemento igual")
+          $(".col-"+(f+1)).children("img:nth-child("+c+")").attr("class", "elemento igual")
+          $(".col-"+(f+2)).children("img:nth-child("+c+")").attr("class", "elemento igual")
           af = true
         }
       }
@@ -82,26 +82,26 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   }
   // ------ Funcion para eliminar dulces ------
   function eliminarDulces (){
-        $(".igual").hide("pulsate",1000, function () { //sintaxis jqueryUI .hide( effect [, options ] [, duration ] [, complete ] )
-        // Es necesario conocer el numero de elementos para sumar puntaje por lo que...
-        var score = $(".igual").length
-        //una vez obtendio el valor removemos del dom los elementos, pues estan escondidos, pero aun siguen en el DOM
-        $("img").remove(".igual")
-        scoreTotal = scoreTotal + score
-        $("#score-text").html(score) //Cambiamos puntuacion en el DOM
-        repoblarDulces()
+    $(".igual").hide("pulsate",1000, function () { //sintaxis jqueryUI .hide( effect [, options ] [, duration ] [, complete ] )
+    // Es necesario conocer el numero de elementos para sumar puntaje por lo que...
+      var score = $(".igual").length
+      //una vez obtendio el valor removemos del dom los elementos, pues estan escondidos, pero aun siguen en el DOM
+      $("img").remove(".igual")
+      scoreTotal = scoreTotal + score
+      $("#score-text").html(score) //Cambiamos puntuacion en el DOM
+      setTimeout(repoblarDulces, 500)
       })
   }
   // ------ Funcion para repoblar nodos vacios ------
   function repoblarDulces (){
-    for (var f = 0; f <= 7; f++) {
-      for (var c = 1; c <= 7; c++) { //recorremos las 7 filas de cada columna buscando img
-        if ($(".col-"+c).find("img") == false) {
+    for (var c = 1; c <= 7; c++) { // Repetimos el proces descrito abajo en cada una de las 7 columnas
+      for (var f = 1; f <= 7; f++) { //recorremos las 7 filas de cada columna buscando img
+        if ($(".col-"+f).children("img:nth-child("+c+")").html() == null) { //buscamos nodos que no contengan una img
           var num = Math.floor((Math.random() * 4) + 1);
-          $(".col-"+c).append("<img class= 'elemento' src='image/"+num+".png'>")
+          $(".col-"+f).prepend("<img class= 'elemento' src='image/"+num+".png'>") //Si se encuentran nodos agregamos el elmento usando prepend, pues append no funciona bien en este caso
         }
       }
     }
-
+    analisaTablero()
   }
 })

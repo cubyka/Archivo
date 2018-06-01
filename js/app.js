@@ -77,7 +77,7 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
       if (rac == true || raf == true) {
         eliminarDulces()
       } else {
-
+        mueveDulces()
       }
   }
   // ------ Funcion para eliminar dulces ------
@@ -88,7 +88,7 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
       //una vez obtendio el valor removemos del dom los elementos, pues estan escondidos, pero aun siguen en el DOM
       $("img").remove(".igual")
       scoreTotal = scoreTotal + score
-      $("#score-text").html(score) //Cambiamos puntuacion en el DOM
+      $("#score-text").html(scoreTotal) //Cambiamos puntuacion en el DOM
       setTimeout(repoblarDulces, 500)
       })
   }
@@ -104,4 +104,15 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     }
     analisaTablero()
   }
+
+  function mueveDulces(){
+    //hacemos elementos droppable y draggable
+    $(".elemento").draggable({
+      revert: "invalid", //indicamos que el elemento regrese a su lugar de origen si es soltado en area ivalida
+    })
+    $("div[class^='.col-']").droppable({ //establecemos que todas las div con la clase que inice con .col-
+      accept: ".elemento"  //especificamos que tipo de elemento va a aceptar
+    })
+  }
+
 })

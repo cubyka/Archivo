@@ -106,13 +106,24 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   }
 
   function mueveDulces(){
-    //hacemos elementos droppable y draggable
-    $(".elemento").draggable({
-      revert: "invalid", //indicamos que el elemento regrese a su lugar de origen si es soltado en area ivalida
-    })
-    $("div[class^='.col-']").droppable({ //establecemos que todas las div con la clase que inice con .col-
-      accept: ".elemento"  //especificamos que tipo de elemento va a aceptar
+    $("img").mousedown(function (){
+      $(this).draggable({
+        revert: "invalid",
+        containment: ".panel-tablero",
+      })
+
+      $("div[class^='col-']").droppable({
+        accept: ".elemento",
+        drop: function (){
+          var dulce1 = $("img").attr("class", "ui-draggable-dragging")
+          var dulce2 = $("img:hover")
+          console.log(dulce1)
+          console.log(dulce2)
+
+        }
+      })
     })
   }
 
 })
+// "div[class^='.col-']"

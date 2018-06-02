@@ -115,8 +115,8 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
       $("div[class^='col-']").droppable({
         accept: ".elemento",
         drop: function (){
-          var dulce1 = $("img").attr("class", "ui-draggable-dragging")
-          var dulce2 = $("img:hover")
+          var dulce1 = $("img").attr("class", "ui-draggable-handle")
+          var dulce2 = $("img").mouseover()
           console.log(dulce1)
           console.log(dulce2)
 

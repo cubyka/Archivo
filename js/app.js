@@ -106,24 +106,24 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   }
 
   function mueveDulces(){
-    $("img").mousedown(function (){
+    var dulce1
+    var dulce2
+    $("img").mousedown(function(){
+      dulce1 = this
       $(this).draggable({
-        revert: "invalid",
-        containment: ".panel-tablero",
+          revert: "invalid",
+          containment: ".panel-tablero",
       })
+    })
 
-      $("div[class^='col-']").droppable({
-        accept: ".elemento",
-        drop: function (){
-          var dulce1 = $("img").attr("class", "ui-draggable-handle")
-          var dulce2 = $("img").mouseover()
-          console.log(dulce1)
-          console.log(dulce2)
-
-        }
-      })
+    $("div[class^='col-']").droppable({
+      accept: ".elemento",
+      drop: function (){
+        dulce2 = $("img").mouseenter()
+        console.log(dulce1)
+        console.log(dulce2)
+      }
     })
   }
 
 })
-// "div[class^='.col-']"

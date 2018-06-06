@@ -1,6 +1,7 @@
 $( document ).ready(function() { //Las buenas practicas nos recomiendan que al usar Jquery crear una funcion document.ready y meter todo nuestro codigo dentro de ella.
   // ...... Variables Globales ......
   var scoreTotal = 0;
+  var movTotal = 0;
   // ...... Parpadeo de titulo ......
   //llamamos a la funcion parpadear que ejecuta el parpadeo del titulo
   parpadear()
@@ -108,22 +109,32 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   function mueveDulces(){
     var dulce1
     var dulce2
-    $("img").mousedown(function(){
-      dulce1 = this
-      $(this).draggable({
-          revert: "invalid",
-          containment: ".panel-tablero",
-      })
-    })
 
-    $("div[class^='col-']").droppable({
-      accept: ".elemento",
-      drop: function (){
-        dulce2 = $("img").mouseenter()
+    $("img").draggable({
+        revert: "invalid",
+        containment: ".panel-tablero",
+        drag: function (event, ui){
+          dulce1 = this
+          $("img").mouseover(function (){
+            dulce2 = this
+          })
+        }
+    })
+    $("[class^='col-']").droppable({
+      drop: function (event, ui){
         console.log(dulce1)
         console.log(dulce2)
+        $(dulce2).replaceWith(dulce1)
+        movTotal = movTotal + 1
+        $("#movimientos-text").html(movTotal)
+
+
       }
     })
+
+
+
+
   }
 
 })

@@ -2,6 +2,7 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   // ...... Variables Globales ......
   var scoreTotal = 0;
   var movTotal = 0;
+  var tiempo = 120000;
   // ...... Parpadeo de titulo ......
   //llamamos a la funcion parpadear que ejecuta el parpadeo del titulo
   parpadear()
@@ -29,6 +30,15 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
       }
       $(this).text("Reiniciar") //Cambiamos el contenido del boton
       analisaTablero() //analizamos el tablero
+
+      $("#timer").timer({
+        countdown: true,
+        seconds: "120000",
+        duration: "2m",
+        repeat: true,
+        callback: timer()
+      })
+
 
     } else if (valorBoton == "Reiniciar") { //Si el boton es reiniciar recargamos la pagina
         location.reload()
@@ -71,6 +81,8 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     }
     return af
   }
+  // ...... final de analisis de dulces ......
+
   // ------ Funcion para analisar el tablero ------
   function analisaTablero () {
       rac = analisisColumnas()
@@ -81,6 +93,8 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         mueveDulces()
       }
   }
+  // ...... final de analisis de tablero ......
+
   // ------ Funcion para eliminar dulces ------
   function eliminarDulces (){
     $(".igual").hide("pulsate",1000, function () { //sintaxis jqueryUI .hide( effect [, options ] [, duration ] [, complete ] )
@@ -93,6 +107,8 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
       setTimeout(repoblarDulces, 500)
       })
   }
+  // ...... final de eliminar dulces ......
+
   // ------ Funcion para repoblar nodos vacios ------
   function repoblarDulces (){
     for (var c = 1; c <= 7; c++) { // Repetimos el proces descrito abajo en cada una de las 7 columnas
@@ -105,7 +121,9 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     }
     analisaTablero()
   }
+  // ...... final de repoblar dulces ......
 
+  // Funcion para cambiar dulces drag $ drop
   function mueveDulces(){
     var dulce1
     var dulce2
@@ -130,5 +148,13 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         setTimeout(analisaTablero, 500)
       }
     })
+  }
+  // ...... final de cambiar dulces ......
+  function timer (){
+    tiempo --
+    $("#timer").html(tiempo);
+  }
+  function terminaTiempo (){
+    alert("termino el tiempo")
   }
 })

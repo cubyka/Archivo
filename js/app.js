@@ -113,8 +113,11 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     $("img").draggable({
         revert: "invalid",
         containment: ".panel-tablero",
-        drag: function (event, ui){
+        start: function (event, ui){
           dulce1 = this
+          position = $(dulce1).position()
+          console.log(dulce1)
+          console.log(position)
           $("img").mouseover(function (){
             dulce2 = this
           })
@@ -124,8 +127,9 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
       drop: function (event, ui){
         console.log(dulce1)
         console.log(dulce2)
-        $(dulce2).replaceWith(dulce1)
+        console.log(position)
         movTotal = movTotal + 1
+        $(dulce2).css({"top": position.top, "left": position.left});
         $("#movimientos-text").html(movTotal)
 
 

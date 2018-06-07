@@ -109,22 +109,29 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   function mueveDulces(){
     var dulce1
     var dulce2
+    var dulceSrc1
+    var dulceSrc2
     $("img").draggable({
         revert: "valid",
         containment: ".panel-tablero",
         start: function (event, ui){
-          dulce1 = $(this).attr("src")
+          dulce1 = this
+          dulceSrc1 = $(this).attr("src")
           $("img").mouseover(function (){
-            dulce2 = $(this).attr("src")
+            dulce2 = this
+            dulceSrc2 = $(this).attr("src")
+            console.log(dulce1)
+            console.log(dulce2)
           })
         }
     })
     $("[class^='col-']").droppable({
       drop: function (event, ui){
-        $(dulce2).attr("src", dulce1)
-        $(dulce1).attr("src", dulce2)
+        $(dulce2).attr("src", dulceSrc1)
+        $(dulce1).attr("src", dulceSrc2)
         movTotal = movTotal + 1
         $("#movimientos-text").html(movTotal)
+        analisaTablero()
       }
     })
   }

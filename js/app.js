@@ -117,21 +117,17 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         start: function (event, ui){
           dulce1 = this
           dulceSrc1 = $(this).attr("src")
-          $("img").mouseover(function (){
-            dulce2 = this
-            dulceSrc2 = $(this).attr("src")
-            console.log(dulce1)
-            console.log(dulce2)
-          })
         }
     })
-    $("[class^='col-']").droppable({
+    $("img").droppable({
       drop: function (event, ui){
+        dulce2 = this
+        dulceSrc2 = $(this).attr("src")
         $(dulce2).attr("src", dulceSrc1)
         $(dulce1).attr("src", dulceSrc2)
         movTotal = movTotal + 1
         $("#movimientos-text").html(movTotal)
-        analisaTablero()
+        setTimeout(analisaTablero, 500)
       }
     })
   }

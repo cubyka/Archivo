@@ -109,14 +109,19 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   function mueveDulces(){
     var dulce1
     var dulce2
+    var position
 
     $("img").draggable({
         revert: "invalid",
         containment: ".panel-tablero",
         start: function (event, ui){
           dulce1 = this
-          position = $(dulce1).position()
+          position = $(this).position()
+          positionY = $(this).prop("top")
+          positionX = $(dulce1).attr("left")
           console.log(dulce1)
+          console.log(positionY)
+          console.log(positionX)
           console.log(position)
           $("img").mouseover(function (){
             dulce2 = this
@@ -132,7 +137,7 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
         $(dulce2).css({"top": position.top, "left": position.left});
         $("#movimientos-text").html(movTotal)
 
-
+//intenta usar replaceall
       }
     })
 
@@ -141,4 +146,10 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
 
   }
 
+})
+$("#arrastrame").draggable({
+drag: function(event, ui){
+$("#posx").text(ui.position.left);
+$("#posy").text(ui.position.top);
+}
 })

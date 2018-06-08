@@ -7,7 +7,7 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   var myTimer
   // ...... Parpadeo de titulo ......
   //llamamos a la funcion parpadear que ejecuta el parpadeo del titulo
-  parpadear()
+  // parpadear()
   function parpadear(){ //generamos una funcion que cambie el color del titulo y llamamos a la funcion regresa.
     $(".main-titulo").animate({
       color: "white",
@@ -154,10 +154,19 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
       clearInterval(myTimer);
       terminaTiempo()
     }
-    $("#timer").html("0"+minuto+":"+segundos)
+    if(segundos>9){
+      $("#timer").html("0"+minuto+":"+segundos)
+    } else {
+      $("#timer").html("0"+minuto+":0"+segundos)
+    }
   }
 
   function terminaTiempo (){
-    alert("termino el tiempo")
+    $(".panel-tablero").hide("slow")
+    $(".panel-score").animate({
+      width: "100%",
+    }, "slow")
+
+
   }
 })

@@ -2,8 +2,9 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
   // ...... Variables Globales ......
   var scoreTotal = 0;
   var movTotal = 0;
-  var minuto = 2
+  var minuto = 2;
   var segundos = 0;
+  var myTimer
   // ...... Parpadeo de titulo ......
   //llamamos a la funcion parpadear que ejecuta el parpadeo del titulo
   parpadear()
@@ -29,10 +30,9 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
           $(".col-"+i).append("<img class= 'elemento' src='image/"+num+".png'>")
         }
       }
-      $(this).text("Reiniciar") //Cambiamos el contenido del boton
+      $(this).text("Reiniciar"); //Cambiamos el contenido del boton
+      myTimer = setInterval(timer, 1000) //inicamos contador
       analisaTablero() //analizamos el tablero
-      setInterval(timer(), 1000) //inicamos contador
-
 
     } else if (valorBoton == "Reiniciar") { //Si el boton es reiniciar recargamos la pagina
         location.reload()
@@ -144,16 +144,18 @@ $( document ).ready(function() { //Las buenas practicas nos recomiendan que al u
     })
   }
   // ...... final de cambiar dulces ......
-  function timer (){
-    if (segundos == 0) {
+  function timer(){
+    if (segundos == 0 && minuto > 0) {
       segundos = 59
       minuto --
-    } else if (segundos !== 0) {
+    } else if (segundos !== 0 && minuto >= 0) {
       segundos --
+    } else if (segundos == 0 && minuto == 0) {
+      clearInterval(myTimer);
+      terminaTiempo()
     }
     $("#timer").html("0"+minuto+":"+segundos)
   }
-
 
   function terminaTiempo (){
     alert("termino el tiempo")
